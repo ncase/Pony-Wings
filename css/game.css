@@ -1,0 +1,169 @@
+/** TAGS **/
+body {
+	color: #FFF;
+	overflow:hidden;
+	margin:0;
+	padding:0;
+	font-family: Helvetica, Arial, sans-serif;
+}
+canvas, #background, #screen, #screen>div {
+	width:480px;
+	height:300px;
+	position:absolute;
+	top:0;
+	left:0;
+}
+img {
+	border:0;
+}
+#background {
+	background-color:#C8E6F0;
+}
+#loading {
+	width:100%;
+	height:100%;
+	background:url('../art/Loading.png');
+}
+
+/** CENTER **/
+.center0{
+	height:100%;
+}
+.center1{
+	display:table; width:100%;height:100%;
+}
+.center2{
+	display:table-cell;
+	vertical-align:middle;
+	width:400px;
+}
+
+/** HUD & SHTUFF **/
+.screenMenu{
+	width:400px;
+	margin: 0 auto 0 auto;
+	display:none;
+}
+#screen > #shade {
+	background-color:#000;
+	opacity:0.5;
+	filter:alpha(opacity=50);
+}
+#hud_screen {
+	position:absolute;
+	top:0;
+	left:480px;
+	width:0px;
+	height:300px;
+	z-index:1;
+}
+#hud_screen .hud_button{
+	width:30px;
+	height:30px;
+	margin-left:5px;
+	background-color:#555;
+	float:right;
+	background:url('../art/Buttons.png');
+	cursor: pointer;
+}
+.hud_button#breset {
+	background-position: -120px 0;
+}
+.hud_button#bmusic {
+	background-position: -60px 0;
+}
+.hud_button#bmusic.toggle {
+	background-position: -90px 0;
+}
+.hud_button#bpause {
+	background-position: 0 0;
+}
+.hud_button#bpause.toggle {
+	background-position: -30px 0;
+}
+#gameover {
+	position:relative;
+}
+.title {
+	margin: 0 auto 0 auto;
+	background:url('../art/Font.png');
+	width:300px;
+	height:50px;
+}
+.stats {
+	margin: 0 auto 0 auto;
+	width:250px;
+	overflow:hidden;
+}
+.stats#main{
+	width:330px;
+	font-size:20px;
+	text-align:center;
+	margin-bottom:10px;
+}
+.stats > #score{
+	float:left;
+	width:100px;
+}
+.stats > #desc{
+	float:left;
+	text-align:right;
+	margin-right:10px;
+	width:130px;
+	color:#E84298;
+}
+#yougotta {
+	/*width:350px;*/
+	width:285px;
+	height:120px;
+}
+#yougotta .gotta_button {
+	float:left;
+	margin-right:5px;
+}
+.gotta_button.social {
+	width:55px;
+	height:70px;
+	overflow:hidden;
+}
+/*#yougotta > #caption{
+	float:left;
+	width:100%;
+	text-align:center;
+	font-size:12px;
+}*/
+/*.fb_like {
+	overflow: hidden;
+}*/
+#homeScreen {
+	position:absolute;
+	top:0;
+	left:0;
+	width:480px;
+	height:90px;
+	background-color:#222;
+	display:none;
+}
+#homeScreen > img{
+	float:left;
+}
+#homeScreen > div{
+	float:left;
+	margin-left:15px;
+	width:300px;
+	text-align:left;
+}
+#homeScreen > div > #title{
+	color:#E84298;
+}
+#homeScreen > div > #title{
+	color:#E84298;
+}
+#gb_embed, #gb_mobile {
+	width:50px;
+	height:60px;
+	background:url('../art/button/EmbedMobile.png');
+}
+#gb_mobile {
+	background-position: -50px 0;
+}

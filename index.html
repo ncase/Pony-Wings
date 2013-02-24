@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+
+<!-- Update your html tag to include the itemscope and itemtype attributes -->
+<html itemscope itemtype="http://schema.org/Game">
+
+   <head>  
+   
+     <!-- SOME METAINFO  -->
+     <title>PONY WINGS</title>
+     <LINK href="css/game.css" rel="stylesheet" type="text/css">
+	 <base target="_blank" />
+	 <link rel="icon" type="image/ico" href="art/favicon/scootwing.ico?">
+
+	 <!-- Add the following three tags inside head -->
+	 <meta itemprop="name" content="Pony Wings">
+	 <meta itemprop="description" content="This would be a description of the content your users are sharing">
+	 <meta itemprop="image" content="http://ponywings.nutcasenightmare.com">
+     
+     <!-- IOS STUFF -->
+     <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+     <meta name="apple-mobile-web-app-capable" content="yes" />
+     <meta name="apple-mobile-web-app-status-bar-style" content="white-translucent" />
+     <link rel="apple-touch-icon-precomposed" href="art/icon/IconScootBack.png" />
+     <link rel="apple-touch-startup-image" href="art/Loading.png" />  
+	 <script>
+		function BlockMove(event) {
+			if(!gameIsLoaded || !menu.isGameOver){
+				event.preventDefault();
+			}
+		}
+		var gameIsLoaded = false;
+		var gameIsMobile = false;
+		var notHomeScreened = gameIsMobile && !window.navigator.standalone;
+	 </script>
+		   
+   </head>
+   
+   <body
+   		
+   		onkeydown="if(gameIsLoaded){ kCont.keyDownHandler(event); }" 
+   		onkeyup="if(gameIsLoaded){ kCont.keyUpHandler(event); }"
+   		onblur="if(gameIsLoaded){ kCont.down=false; menu.pause(); }"
+		
+		onmousedown="if(gameIsLoaded){ if(event.pageX<360||event.pageY>45){ kCont.down = true; } }"
+		onmouseup="if(gameIsLoaded){ kCont.down = false; }"
+   		
+   		ontouchstart="if(gameIsLoaded){ if(event.touches[0].pageX<360||event.touches[0].pageY>45){ kCont.down = true; } } BlockMove(event);"
+		ontouchend="if(gameIsLoaded){ kCont.down = false; }" 
+		ontouchcancel="if(gameIsLoaded){ kCont.down = false; }"> 
+   		
+	   <div>   
+	   	   
+	   	   <!-- CANVAS DOM -->
+	   	   <div id="background">
+				<div id='loading'></div>
+	   	   </div>
+	   	   <div id="game_container" style='display:none;'>
+		   	   <canvas id="game" width="480" height="300"> </canvas>
+			   <canvas id="hud" width="480" height="300"></canvas>
+			   <div id='instructions' style='position:relative;opacity:1'>
+					<div class='title' style="position:absolute;top:20px;left:20px;"></div>
+					<div style='position:absolute;top:100px;left:200px;width:270px;height:100px;color:#E84298;'>
+				   		Scootaloo has always dreamed of flying, but her wings are too tiny.
+				   		<br><br>
+				   		Rollerscoot across hills to fly, catch speed-boosting parasprites, and outrace the sunset!
+				   		<br><br>
+				   		Press Screen or S to Scoot
+			   		</div>
+			   </div>
+			   <div id="hud_screen">
+					<div style="position:absolute;top:0;right:0;margin:10px;width:150px">
+						<div class="hud_button" id="breset" 
+								ontouchstart="if(pony.startMoving){PWG.pauseGame();PWG.init();PWG.startTheGame();}" 
+								onclick='if(pony.startMoving){PWG.pauseGame();PWG.init();PWG.startTheGame();}'></div>
+						<div class="hud_button" id="bmusic" 
+								ontouchstart='menu.toggleAudio();'
+								onclick='menu.toggleAudio();'></div>
+						<div class="hud_button" id="bpause" 
+								ontouchstart='menu.togglePause();'
+								onclick='menu.togglePause();'></div>
+					</div>
+			   		<span style="position:absolute;right:0;bottom:0;margin:10px" id="points">0</span>
+			   </div>
+		   	   <div id="screen">
+		   	   		<div id="shade"></div>
+		   	   		<div id="container">
+		   	   			<div class="center0">
+		   	   				<div class="center1">
+				   	   			<div class="center2">
+									<div id='pause' class="screenMenu">
+										<div class='title' style="background-position:0 -100px;"></div>
+										<div class='stats' id='main' style='font-size:16px'>
+											Press the Play button<br>to resume flight
+											<div id='homeScreen'>
+												<img src='art/icon/HomeScreen.png'/>
+												<div>
+													<span id='title'><br>PLAY ME as a FULLSCREEN APP<br></span>
+													<span style='font-size:12px;'>
+														Open up your mobile browser's menu below<br>And select Add to Home Screen
+													</span>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div id='gameover' class="screenMenu" style="top:40px;" >
+										<div class="center2" style="width:400px;">
+											<div class='title' style="background-position:0 -50px;"></div>
+											<div class='stats' id='main'>
+												Scootaloo flew <span id='stats_points'>1337m</span> today!
+											</div>
+											<div class='stats'>
+												<div id='desc'>max altitude</div>
+												<div id='score'><span id='stats_altitude'>20</span> m</div>
+											</div>
+											<div class='stats'>
+												<div id='desc'>max velocity</div>
+												<div id='score'><span id='stats_velocity'>20</span> kph</div>
+											</div>
+											<div class='stats'>
+												<div id='desc'>parasprites</div>
+												<div id='score'><span id='stats_parasprites'>20</span></div>
+											</div>
+											<div class='stats' id='main' style='margin-top:10px;font-size:16px'>
+												Press Restart button or S to Start a new day
+											</div>
+											
+											<div class='stats' id='yougotta'>
+												
+												<!-- FACEBOOK -->
+												<div class='gotta_button social' style='margin-right:-3px'>
+													<div id='fb-root'></div>
+													<div class='fb-like' data-href='http://ponywings.nutcasenightmare.com' data-send='false' data-layout='box_count' data-width='50' data-show-faces='false'></div>
+												</div>
+												
+												<!-- TWITTER -->
+												<div class='gotta_button social' style='margin-right:3px'>
+													<a href='https://twitter.com/share' class='twitter-share-button' id='twitter_thing'
+														data-url='http://ponywings.nutcasenightmare.com' 
+														data-text='Today I roller-scooted and flew across the hills of Equestria! Play Pony Wings:' 
+														data-count='vertical'
+														data-via='ncasenmare'>Tweet</a>
+												</div>
+												
+												<!-- GOOGLE -->
+												<div class='gotta_button social'>
+													<!-- Place this tag where you want the +1 button to render -->
+													<g:plusone size='tall'></g:plusone>
+												</div>
+												
+												<!-- THE SITE -->
+												<a href='http://ponywings.nutcasenightmare.com'>
+													<img src='art/icon/PonyWingsSite.png' width='60' height='60' class='gotta_button' />
+												</a>
+												
+												<!-- EMBED 
+												<div class='gotta_button' id='gb_embed'></div>-->
+												
+												<!-- MOBILE -->
+												<a href='http://ponywings.nutcasenightmare.com'>
+													<div class='gotta_button' id='gb_mobile' style='margin-right:0px'></div>
+												</a>
+												
+											</div>
+											
+										</div>
+									</div>
+								</div>
+			   	   			</div>
+		   	   			</div>
+		   	   		</div>
+		   	   </div>
+	   	   </div>
+		   
+		   <!-- Import JS files -->
+		   <script src="src/HUD.js"></script>
+		   <script src="src/Menu.js"></script>
+		   <script src="src/Background.js"></script>
+		   <script src="src/Pony.js"></script>
+		   <script src="src/Terrain.js"></script>
+		   <script src="src/TerrainProp.js"></script>
+     	   <script src="src/KeyCont.js"></script>
+		   <script src="src/MusicLoop.js"></script>
+		   <script src="src/PonyWingsGame.js"></script>
+		   <script type="text/javascript">
+		   		var enterFrameRate;
+		   		var drawFrameRate;
+		   		if(gameIsMobile){
+		   			drawFrameRate = 1000/4;
+		   			enterFrameRate = 1000/40;
+		   		}else{
+					drawFrameRate = 1000/60;
+					enterFrameRate = 1000/60;
+				}
+				canvas = document.getElementById('game');
+				ctx = canvas.getContext('2d');
+				hudCanvas = document.getElementById('hud');
+				hudCTX = hudCanvas.getContext('2d');
+				//function alert(){} // Mutes alerts.
+			
+				PWG.loadArtAssets();
+				PWG.init();
+		   </script>
+		   
+		</div>
+
+   </body> 
+    
+</html> 
+
+<!-- SOCIAL NETWORKS -->
+ 
+<!-- Facebook -->
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, "script", "facebook-jssdk"));</script>
+
+<!-- Twitter -->
+<script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+
+<!-- Google -->
+<script type="text/javascript">
+  (function() {
+    var po = document.createElement("script"); po.type = "text/javascript"; po.async = true;
+    po.src = "https://apis.google.com/js/plusone.js";
+    var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+
