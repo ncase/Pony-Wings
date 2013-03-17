@@ -93,15 +93,15 @@ pony.enterFrame = function()
 		if(HUD.timer>0 && pony.keyDown){
 			if(pony.touchGround2){
 				if(pony.vel.y>0){
-					pony.vel.y += 0.3; 
+					pony.vel.y += 0.3 * Config.power; 
 					//pony.vel.x += 0.05; 
 				}else{
 					//pony.vel.y -= 0.05; 
-					pony.vel.x += 0.2; 
+					pony.vel.x += 0.2 * Config.power; 
 					//pony.vel.x += 0.1; //Should just be pushing fwd
 				}
 			}else{
-				pony.vel.y += 0.25;
+				pony.vel.y += 0.25 * Config.power;
 			}
 		}else{
 			if(HUD.timer>0 && pony.touchGround2){
@@ -147,8 +147,8 @@ pony.enterFrame = function()
 				pony.vel.x=0.1;
 			}
 			pony.vel.y = pony.vel.x*terrSlope;
-			pony.vel.x*=0.995;
-			pony.vel.y*=0.995;
+			pony.vel.x *= Config.friction;
+			pony.vel.y *= Config.friction;
 		}else{
 			//pony.coord.y += pony.vel.y;
 		}

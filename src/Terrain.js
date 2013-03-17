@@ -19,7 +19,7 @@ terrain.newNode = function()
 		terrain.nodes.push( terrain.nodes[terrain.lastX-2] );
 		terrain.nodes[terrain.lastX-2] = null;
 	}
-	terrain.nodes[terrain.nodes.length-1].x = terrain.nodes[terrain.nodes.length-2].x + Math.random()*150+250;
+	terrain.nodes[terrain.nodes.length-1].x = terrain.nodes[terrain.nodes.length-2].x + Math.random()*Config.hill.widthVariation+Config.hill.widthBase;
 	if(terrain.nodes[terrain.nodes.length-2].y<130){
 		terrain.nodes[terrain.nodes.length-1].y = 200+Math.random()*70;
 	}else{

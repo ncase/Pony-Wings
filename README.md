@@ -5,6 +5,11 @@ This game is live on [ponywings.nutcasenightmare.com](http://ponywings.nutcaseni
 
 Runs on modern browsers that support HTML5 - it even runs as a mobile web app!
 
+### UPDATE: Now Configurable!
+
+You can change the game's variables through src/Config.js now.
+Yay!
+
 ### Credits
 * Art & Code by [Nick](http://nutcasenightmare.com/)
 * Music by [David Larsen](http://www.youtube.com/watch?v=s7kPPfQV1fg)
