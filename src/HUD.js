@@ -60,7 +60,11 @@ HUD.enterFrame = function(){
 		HUD.awesome *= 3;
 		HUD.awesome += 0.02*(-0.04*pony.coord.y+pony.vel.x*1.2); // Originally 0.04 not 0.02. Halved for better judge of awesome.
 		HUD.awesome *= 0.25;
-		HUD.timer-=(1/(60*30)-pony.vel.x*(1/(60*30))*(1/20));
+
+		var timerDecrease = Config.timer.constant;
+		var timerIncrease = pony.vel.x * Config.timer.speedMultiplier;
+		HUD.timer -= timerDecrease;
+		HUD.timer += timerIncrease;
 		
 		if(HUD.groundvel<pony.vel.x){
 			HUD.groundvel = pony.vel.x;

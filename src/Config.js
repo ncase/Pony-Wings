@@ -10,6 +10,12 @@ exports.Config = {
 	hill: {
 		widthVariation: 150,
 		widthBase: 400
+	},
+
+	// Timer
+	timer: {
+		constant: 1/(60*15), // Would run out in fifteen seconds (at 60FPS) if you stood still
+		speedMultiplier: 0.00005 // Completely arbitrary
 	}
 
 };
